@@ -17,7 +17,7 @@ GREY = (128, 128, 128)
 TURQUOISE = (64, 224, 208)
 
 
-class Point:
+class Point: # PONTOS 
     def __init__(self, row, col, size, total_rows):
         self.row = row
         self.col = col
@@ -147,7 +147,7 @@ def algorithm(draw, grid, start, end):
     return False
 
 
-def make_grid(rows, size):
+def make_grid(rows, size): # PONTOS
     grid = []
     gap = size // rows
     for i in range(rows):
@@ -159,7 +159,7 @@ def make_grid(rows, size):
     return grid
 
 
-def draw_grid(win, rows, size):
+def draw_grid(win, rows, size): # LINHAS 
     gap = size // rows
     for i in range(rows):
         pygame.draw.line(win, GREY, (0, i * gap), (size, i * gap))
