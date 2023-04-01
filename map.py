@@ -6,10 +6,10 @@ WINDOW = pygame.display.set_mode((SIZE, SIZE))  # Tamanho da janela
 pygame.display.set_caption('Zelda com A*')  # Título
 
 POINTS = {
-    'G': {'color': (0, 255, 0), 'cost': 10}, # LIGHT_GREEN
+    'G': {'color': (113, 228, 57), 'cost': 10}, # LIGHT_GREEN (0, 255, 0)
     'D': {'color': (160, 140, 60), 'cost': 20}, # LIGHT_BROWN
-    'F': {'color': (0, 150, 50), 'cost': 100}, # GREEN
-    'M': {'color': (80, 40, 0), 'cost': 150}, # BROWN
+    'F': {'color': (10, 102, 62), 'cost': 100}, # GREEN (0, 150, 50)
+    'M': {'color': (113, 84, 27), 'cost': 150}, # BROWN (80, 40, 0)
     'R': {'color': (0, 150, 255), 'cost': 180}, # BLUE
     'C': {'color': (255, 255, 255), 'cost': 10}, # WHITE
     'B': {'color': (128, 128, 128), 'cost': 0}, # GREY
@@ -17,8 +17,9 @@ POINTS = {
 
 BLACK = (0, 0, 0) # Linhas
 
+
 class Point: # PONTOS 
-    def __init__(self, row, col, size, total_rows, color, cost, t):
+    def __init__(self, row, col, size, total_rows, color, cost):
         self.row = row
         self.col = col
         self.x = row * size
@@ -28,13 +29,9 @@ class Point: # PONTOS
         self.neighbors = []
         self.size = size  # TODO: tamanho?
         self.total_rows = total_rows
-        self.t = t
 
     def get_location(self):
         return self.row, self.col
-    
-    def get_type(self):
-        return self.t
 
     def draw(self, win):
         pygame.draw.rect(win, self.color, (self.y, self.x, self.size, self.size))
@@ -79,6 +76,13 @@ def make_grid(maps=read_maps(), title='# HYRULE', size=SIZE):  # Desenha os pont
     return win
 
 
+def draw(win, grid, size, rows=42):
+    for point in grid:
+        point.draw(win)
+    draw_grid(win, rows, size)
+    pygame.display.update()
+
+
 def draw_grid(win, rows, size):  # Desenha as linhas e colunas
     gap = size // rows
     for i in range(rows):
@@ -87,15 +91,7 @@ def draw_grid(win, rows, size):  # Desenha as linhas e colunas
             pygame.draw.line(win, BLACK, (j * gap, 0), (j * gap, size))
 
 
-def draw(win, grid, rows, size):
-    for row in grid:
-        #for point in row:
-        row.draw(win)
-    draw_grid(win, rows, size)
-    pygame.display.update()
-
-
 grid = make_grid()
 run = True
 while run:
-    draw(WINDOW, grid, 42, SIZE)
+    draw(WINDOW, grid, SIZE, 42)
