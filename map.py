@@ -37,7 +37,7 @@ class Point: # PONTOS
         return self.t
 
     def draw(self, win):
-        pygame.draw.rect(win, self.color, (self.x, self.y, self.size, self.size))
+        pygame.draw.rect(win, self.color, (self.y, self.x, self.size, self.size))
 
 
 def read_maps():
@@ -75,7 +75,7 @@ def make_grid(maps=read_maps(), title='# HYRULE', size=SIZE):  # Desenha os pont
     for i in range(rows): # Varre o mapa
         for j in range(rows):
             point = Point(i, j, gap, rows, POINTS[grid[i][j]]['color'], POINTS[grid[i][j]]['cost'], grid[i][j]) # Cria o ponto
-            win.append([point])
+            win.append(point)
     return win
 
 
@@ -89,8 +89,8 @@ def draw_grid(win, rows, size):  # Desenha as linhas e colunas
 
 def draw(win, grid, rows, size):
     for row in grid:
-        for point in row:
-            point.draw(win)
+        #for point in row:
+        row.draw(win)
     draw_grid(win, rows, size)
     pygame.display.update()
 
