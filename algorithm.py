@@ -53,7 +53,6 @@ def algorithm(draw, map_points, start_point, end_point):
         if current == end_point:
             return list(reversed(reconstruct_path(came_from, current, draw)))
 
-        # Calcula o F, G e H dos vizinhos do nó atual
         for neighbor in current.neighbors:
             temp_g_score = g_score[current] + neighbor.cost
 
