@@ -1,3 +1,5 @@
+# Áreas do mapa
+
 GRAMA (G)
 FLORESTA (F)
 AREIA - DESERTO (D)
@@ -5,3 +7,9 @@ MONTANHA (M)
 ÁGUA - RIO (R)
 CAMINHO (C)
 BLOQUEIO (B)
+PORTA (P)
+
+# Posições das portas para as dungeon
+dungeon1 - (1, 24)
+dungeon2 - (17, 39)
+dungeon3 - (32, 5)

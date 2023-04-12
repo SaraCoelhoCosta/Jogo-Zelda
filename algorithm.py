@@ -44,7 +44,6 @@ def algorithm(draw, map_points, start_point, end_point):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-
         
         current = closed_set.get()[2]
         open_set.remove(current)
