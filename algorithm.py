@@ -1,58 +1,70 @@
+import sys
 import pygame
 from queue import PriorityQueue
 
-def h(start, end):  # Heurística
+def h(start, end):  # Heurística - quanto falta para chegar no objetivo
     x1, y1 = start
     x2, y2 = end
     return abs(x1 + x2) + abs(y1 - y2)
 
 def reconstruct_path(came_from, current, draw):  # TODO: refazer
+    list_path = [current]
     while current in came_from:
         current = came_from[current]
+        list_path.append(current)
         current.make_path()
         draw()
+    return list_path
 
-def algorithm(draw, grid, start, end):  # TODO: refazer
-    count = 0
-    open_set = PriorityQueue()
-    open_set.put((0, count, start))
+# Algoritmo A*
+def algorithm(draw, map_points, start_point, end_point):
     came_from = {}
-    g_score = {spot: float("inf") for row in grid for spot in row}
-    g_score[start] = 0
-    f_score = {spot: float("inf") for row in grid for spot in row}
-    f_score[start] = h(start.get_pos(), end.get_pos())
+    count = 0
 
-    open_set_hash = {start}
+    # Lista aberta - nós a serem visitados
+    open_set = {start_point}
 
-    while not open_set.empty():
+    # Lista fechada - nós visitados
+    closed_set = PriorityQueue()
+    closed_set.put((0, count, start_point))
+
+    # Quanto foi deslocado do nó inicial até o nó atual
+    g_score = {point: float("inf") for row in map_points for point in row}
+    g_score[start_point] = 0
+
+    # Quanto falta deslocar do nó atual até o nó objetivo
+    h_score = {point: float("inf") for row in map_points for point in row}
+    h_score[start_point] = h(start_point.get_location(), end_point.get_location())
+
+    # Executa o algoritmo enquanto a fila com vizinhos não visitados não for vazia
+    while not closed_set.empty():
+
+        # Sair do jogo
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-        
-        current = open_set.get()[2]
-        open_set_hash.remove(current)
+                sys.exit()
 
-        if current == end:
-            reconstruct_path(came_from, end, draw)
-            end.make_end()
-            return True
         
+        current = closed_set.get()[2]
+        open_set.remove(current)
+
+        # Verifica se o nó atual é o objetivo, caso seja, ele constrói o caminho e retorna o caminho feito
+        if current == end_point:
+            return list(reversed(reconstruct_path(came_from, current, draw)))
+
+        # Calcula o F, G e H dos vizinhos do nó atual
         for neighbor in current.neighbors:
-            temp_g_score = g_score[current] + 1
+            temp_g = g_score[current] + neighbor.cost
 
-            if temp_g_score < g_score[neighbor]:
+            if temp_g < g_score[neighbor]:
                 came_from[neighbor] = current
-                g_score[neighbor] = temp_g_score
-                f_score[neighbor] = temp_g_score + h(neighbor.get_pos(), end.get_pos())
-                if neighbor not in open_set_hash:
-                    count += 1
-                    open_set.put((f_score[neighbor], count, neighbor))
-                    open_set_hash.add(neighbor)
-                    neighbor.make_open()
-            
-        draw()
 
-        if current != start:
-            current.make_closed()
-        
-    return False
+                g_score[neighbor] = temp_g
+                h_score[neighbor] = temp_g + \
+                    h(neighbor.get_location(), end_point.get_location())
+
+                if neighbor not in open_set:
+                    count += temp_g
+                    closed_set.put((h_score[neighbor], count, neighbor))
+                    open_set.add(neighbor)

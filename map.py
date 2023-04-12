@@ -8,10 +8,11 @@ class Map: # Mapa
         self.size = size
         self.start = start
         self.end = end
-        self.points_map = points_map
+        self.points = points_map
 
 
 def read_maps(title):
+    current_map = ''
 
     if len(maps) != 0:
         return maps[title]
@@ -44,11 +45,16 @@ def get_hyrule(size):
     map = read_maps('# HYRULE')
     points_map = make_points(map, size)
 
+    if map is not None:
+        map_len = len(map)
+    else:
+        map_len = 0
+
     return Map(
         '# HYRULE',
-        len(map),
-        (25, 28),
-        (7, 6),
+        map_len,
+        points_map[25][8],
+        points_map[7][6],
         points_map,
     )
 
@@ -57,11 +63,16 @@ def get_dungeon1(size):
     map = read_maps('# DUNGEON 1')
     points_map = make_points(map, size)
 
+    if map is not None:
+        map_len = len(map)
+    else:
+        map_len = 0
+        
     return Map(
         '# DUNGEON 1',
-        len(map),
-        (26, 14),
-        (3, 13),
+        map_len,
+        points_map[26][14],
+        points_map[3][13],
         points_map,
     )
 
@@ -70,11 +81,16 @@ def get_dungeon2(size):
     map = read_maps('# DUNGEON 2')
     points_map = make_points(map, size)
 
+    if map is not None:
+        map_len = len(map)
+    else:
+        map_len = 0
+
     return Map(
         '# DUNGEON 2',
-        len(map),
-        (25, 13),
-        (2, 13),
+        map_len,
+        points_map[25][13],
+        points_map[2][13],
         points_map,
     )
 
@@ -83,10 +99,15 @@ def get_dungeon3(size):
     map = read_maps('# DUNGEON 3')
     points_map = make_points(map, size)
 
+    if map is not None:
+        map_len = len(map)
+    else:
+        map_len = 0
+
     return Map(
         '# DUNGEON 3',
-        len(map),
-        (25, 14),
-        (19, 15),
+        map_len,
+        points_map[25][14],
+        points_map[19][15],
         points_map,
     )

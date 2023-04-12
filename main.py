@@ -1,6 +1,6 @@
 import sys
 import pygame
-from draw_map import draw_map
+from draw_map import draw_points
 from algorithm import algorithm
 from map import get_hyrule, get_dungeon1, get_dungeon2, get_dungeon3
 
@@ -13,7 +13,7 @@ def main(win=WINDOW, size_win=SIZE):
 
     run = True
     while run:
-        draw_map(win, size_win, hyrule.size, hyrule.points_map)
+        draw_points(win, size_win, hyrule.size, hyrule.points)
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -25,14 +25,13 @@ def main(win=WINDOW, size_win=SIZE):
                 if event.key == pygame.K_c: # Limpa o mapa
                     hyrule = get_hyrule(size_win)
 
-'''
-TODO: Fazer
                 if event.key == pygame.K_SPACE:
-                    for row in hyrule.points_map:
-                        for spot in row:
-                            spot.update_neighbors(hyrule.points_map)
+                    for row in hyrule.points:
+                        for point in row:
+                            point.update_neighbors(hyrule.points)
 
-                    algorithm(lambda:draw_map(win, size_win, hyrule.size, hyrule.points_map), hyrule.points_map, hyrule.start, hyrule.end)
-'''
+                    algorithm(lambda:draw_points(win, size_win, hyrule.size, hyrule.points), hyrule.points, hyrule.start, hyrule.end)
 
-main()
+
+if __name__ == '__main__':
+    main()

@@ -23,6 +23,7 @@ class Point: # Pontos do mapa
         self.neighbors = []
         self.size = size
         self.total_rows = total_rows
+        self.open = False
 
     def get_location(self):
         return self.row, self.col
@@ -30,32 +31,25 @@ class Point: # Pontos do mapa
     def draw(self, win):
         pygame.draw.rect(win, self.color, (self.y, self.x, self.size, self.size))
 
-
-def read_maps(title):
-    with open("maps.txt", "r") as file:  # Lê o arquivo de texto com os mapas
-        lines = file.readlines()
-
-    maps = {} 
-
-    for line in lines:
-        line = line.split('\n')[0]
-
-        if not (line.strip()):  # Ignora linha vazia
-            continue
-
-        elif line[0] == '#':  # Verifica se a linha é igual ao título do mapa
-            '''
-                A linha pega cada palavra e separa como um elemento da lista. A variável current_map recebe uma lista que foi convertida em string (usando join), após juntar os elementos da lista como um único (usando split)
-            '''
-            current_map = ' '.join(line.split(','))
-            maps[current_map] = []  # Inicializa uma lista para cada tipo de mapa
-
-        else:  # Adiciona linha do mapa no dicionário
-            # print(list(line)) -> converte para lista
-            maps[current_map].append(line)
+    def is_barrier(self):
+        return self.color == (128, 128, 128)  # TODO: refazer -- GREY
     
+    def make_path(self):
+        self.color = (128, 0, 128)  # TODO: refazer -- PURPLE
 
-    return maps[title]
+    def update_neighbors(self, grid):
+        self.neighbors = []
+        if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].is_barrier():  # PARA BAIXO
+            self.neighbors.append(grid[self.row + 1][self.col])
+
+        if self.row > 0 and not grid[self.row - 1][self.col].is_barrier():  # PARA CIMA
+            self.neighbors.append(grid[self.row - 1][self.col])
+
+        if self.col < self.total_rows - 1 and not grid[self.row][self.col + 1].is_barrier():  # PARA DIREITA
+            self.neighbors.append(grid[self.row][self.col + 1])
+
+        if self.col > 0 and not grid[self.row][self.col - 1].is_barrier():  # PARA ESQUERDA
+            self.neighbors.append(grid[self.row][self.col - 1])
 
 
 def make_points(map, size):  # Faz os pontos do mapa
@@ -64,16 +58,19 @@ def make_points(map, size):  # Faz os pontos do mapa
     gap = size // rows # Quantidades de quadrados na janela
     win = []
 
-    for i in range(rows): 
+    for i in range(rows):
+        win.append([])
         for j in range(rows):
             point = Point(i, j, gap, rows, POINTS[map[i][j]]) # Cria o ponto
-            win.append(point)
+            win[i].append(point)
+
     return win
 
 
-def draw_map(win, size_win, size_map, points_map): # Desenha o mapa
-    for point in points_map:
-        point.draw(win)
+def draw_points(win, size_win, size_map, points_map): # Desenha os pontos do mapa
+    for row in points_map:
+        for point in row:
+            point.draw(win)
     draw_line(win, size_win, size_map)
     pygame.display.update()
 
