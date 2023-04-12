@@ -33,8 +33,8 @@ def algorithm(draw, map_points, start_point, end_point):
     g_score[start_point] = 0
 
     # Quanto falta deslocar do nó atual até o nó objetivo
-    h_score = {point: float("inf") for row in map_points for point in row}
-    h_score[start_point] = h(start_point.get_location(), end_point.get_location())
+    f_score = {point: float("inf") for row in map_points for point in row}
+    f_score[start_point] = h(start_point.get_location(), end_point.get_location())
 
     # Executa o algoritmo enquanto a fila com vizinhos não visitados não for vazia
     while not closed_set.empty():
@@ -55,16 +55,15 @@ def algorithm(draw, map_points, start_point, end_point):
 
         # Calcula o F, G e H dos vizinhos do nó atual
         for neighbor in current.neighbors:
-            temp_g = g_score[current] + neighbor.cost
+            temp_g_score = g_score[current] + neighbor.cost
 
-            if temp_g < g_score[neighbor]:
+            if temp_g_score < g_score[neighbor]:
                 came_from[neighbor] = current
 
-                g_score[neighbor] = temp_g
-                h_score[neighbor] = temp_g + \
-                    h(neighbor.get_location(), end_point.get_location())
+                g_score[neighbor] = temp_g_score
+                f_score[neighbor] = temp_g_score + h(neighbor.get_location(), end_point.get_location())
 
                 if neighbor not in open_set:
-                    count += temp_g
-                    closed_set.put((h_score[neighbor], count, neighbor))
+                    count += temp_g_score
+                    closed_set.put((f_score[neighbor], count, neighbor))
                     open_set.add(neighbor)
