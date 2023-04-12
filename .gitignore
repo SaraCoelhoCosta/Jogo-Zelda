@@ -130,3 +130,6 @@ dmypy.json
 
 # Arquivos py
 .idea/
+
+# Arquivo VScode
+.vscode/
