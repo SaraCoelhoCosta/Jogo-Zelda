@@ -6,7 +6,8 @@ from map import  get_dungeon1, get_dungeon2, get_dungeon3
 def play(win, second_win, size_win, hyrule):
     
     order_way = best_way(win, size_win, hyrule) # Recebe a ordem em que as dungers serão percorridas
-    end = hyrule.points[1][2]
+    # end = hyrule.points[1][2]
+    end = hyrule.end
     distance_total = 0
 
     path = algorithm(lambda:draw_points(win, size_win, hyrule.size, hyrule.points), hyrule.points, order_way[0].start_hyrule, hyrule.start) # Início para dungeon
@@ -47,8 +48,7 @@ def best_way(win, size_win, hyrule):
             for point in row:
                 point.update_neighbors(hyrule.points)
 
-        start = hyrule.start
-        end = hyrule.points[1][2]
+        # end = hyrule.points[1][2]
         dungeons = [get_dungeon1(size_win), get_dungeon2(size_win), get_dungeon3(size_win)]
         all_paths = []
 
@@ -59,19 +59,25 @@ def best_way(win, size_win, hyrule):
 
         all_paths = []
         for ways_list in perm_list:
+            start = hyrule.start
+            end = hyrule.end
             distance_total = 0
             points_dungeon = []
             for i, dungeon in enumerate(ways_list):
-                path = algorithm(lambda: draw_points(win, size_win, hyrule.size, hyrule.points), hyrule.points,
-                                     dungeon.start_hyrule, start, True)  # Retorna caminho entre posição inicial ou de uma dungeon com outra dungeon
-                distance = calculate_path(path)
-                distance_total = distance_total + distance
-                    
+                
                 if i == len(ways_list) - 1:
                     path = algorithm(lambda: draw_points(win, size_win, hyrule.size, hyrule.points), hyrule.points,
                                      end, dungeon.start_hyrule, True)  # Retorna caminho entre posição inicial ou de uma dungeon com outra dungeon
                     distance = calculate_path(path)
                     distance_total = distance_total + distance
+                
+                else:
+                    path = algorithm(lambda: draw_points(win, size_win, hyrule.size, hyrule.points), hyrule.points,
+                                     dungeon.start_hyrule, start, True)  # Retorna caminho entre posição inicial ou de uma dungeon com outra dungeon
+                    start = dungeon.start_hyrule
+                    distance = calculate_path(path)
+                    distance_total = distance_total + distance
+                    
                 # points_dungeon.append(dungeon.start_hyrule.get_location())     
                 points_dungeon.append(dungeon)     
             all_paths.append((points_dungeon, distance_total)) # Guarda posição da dungeon e caminho percorrido
