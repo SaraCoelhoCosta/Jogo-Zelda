@@ -8,7 +8,6 @@ POINTS = {
     'R': {'color': (0, 150, 255), 'cost': 180}, # BLUE
     'C': {'color': (255, 255, 255), 'cost': 10}, # WHITE
     'B': {'color': (128, 128, 128), 'cost': 0}, # GREY
-    'P': {'color': (255, 204, 229), 'cost': 0}, # TODO: Mudar ROSA
 }
 BLACK = (0, 0, 0) # Linhas
 
