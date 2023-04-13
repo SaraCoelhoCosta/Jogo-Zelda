@@ -56,8 +56,8 @@ def get_hyrule(size):
     return Map(
         '# HYRULE',
         map_len,
-        points_map[25][8],
-        points_map[7][6],
+        points_map[25][28],
+        points_map[5][6],
         points_map,
         points_map[25][8],
     )
