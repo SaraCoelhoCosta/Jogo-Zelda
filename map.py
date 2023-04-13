@@ -1,14 +1,16 @@
 from draw_map import make_points
 
 maps = {}  # Variável global 
+points_map_hyrule = []
 
 class Map: # Mapa
-    def __init__(self, title, size, start, end, points_map):
+    def __init__(self, title, size, start, end, points_map, start_hyrule):
         self.title = title
         self.size = size
         self.start = start
         self.end = end
         self.points = points_map
+        self.start_hyrule = start_hyrule
 
 
 def read_maps(title):
@@ -44,6 +46,7 @@ def read_maps(title):
 def get_hyrule(size):
     map = read_maps('# HYRULE')
     points_map = make_points(map, size)
+    points_map_hyrule.append(points_map)
 
     if map is not None:
         map_len = len(map)
@@ -56,6 +59,7 @@ def get_hyrule(size):
         points_map[25][8],
         points_map[7][6],
         points_map,
+        points_map[25][8],
     )
 
 
@@ -74,6 +78,7 @@ def get_dungeon1(size):
         points_map[26][14],
         points_map[3][13],
         points_map,
+        points_map_hyrule[0][1][24],
     )
 
 
@@ -92,6 +97,7 @@ def get_dungeon2(size):
         points_map[25][13],
         points_map[2][13],
         points_map,
+        points_map_hyrule[0][17][39],
     )
 
 
@@ -110,4 +116,5 @@ def get_dungeon3(size):
         points_map[25][14],
         points_map[19][15],
         points_map,
+        points_map_hyrule[0][32][5],
     )

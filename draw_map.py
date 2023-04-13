@@ -38,6 +38,9 @@ class Point: # Pontos do mapa
     def make_path(self):
         self.color = (128, 0, 128)  # TODO: refazer -- PURPLE
 
+    def make_path2(self):
+        self.color = (255, 0, 0)  # TODO: refazer -- RED
+
     def update_neighbors(self, grid):
         self.neighbors = []
         if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].is_barrier():  # PARA BAIXO
@@ -63,8 +66,6 @@ def make_points(map, size):  # Faz os pontos do mapa
         win.append([])
         for j in range(rows):
             point = Point(i, j, gap, rows, POINTS[map[i][j]]) # Cria o ponto
-            if point.color == (255, 204, 229):
-                print(point.get_location())
             win[i].append(point)
 
     return win

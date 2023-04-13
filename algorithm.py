@@ -12,12 +12,16 @@ def reconstruct_path(came_from, current, draw):  # TODO: refazer
     while current in came_from:
         current = came_from[current]
         list_path.append(current)
-        current.make_path()
+        if current.color == (128, 0, 128):
+            current.make_path2()
+        else:    
+            current.make_path()
+        pygame.time.delay(100)
         draw()
     return list_path
 
 # Algoritmo A*
-def algorithm(draw, map_points, start_point, end_point):
+def algorithm(draw, map_points, start_point, end_point, best_way=False):
     came_from = {}
     count = 0
 
@@ -48,9 +52,17 @@ def algorithm(draw, map_points, start_point, end_point):
         current = closed_set.get()[2]
         open_set.remove(current)
 
+        list_path = []
         # Verifica se o nó atual é o objetivo, caso seja, ele constrói o caminho e retorna o caminho feito
         if current == end_point:
-            return list(reversed(reconstruct_path(came_from, current, draw)))
+            if best_way == False:
+                return list(reversed(reconstruct_path(came_from, current, draw)))
+            else:
+                list_path = [current]
+                while current in came_from:
+                    current = came_from[current]
+                    list_path.append(current)
+                return list(reversed(list_path))
 
         for neighbor in current.neighbors:
             temp_g_score = g_score[current] + neighbor.cost
