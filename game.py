@@ -33,7 +33,7 @@ def play(win, second_win, size_win, hyrule):
             path = algorithm(lambda:draw_points(win, size_win, hyrule.size, hyrule.points), hyrule.points, order_way[i + 1].start_hyrule, dungeon.start_hyrule) # Percorre o Hyrule até a próxima dungeon
             distance = calculate_path(path)
             distance_total = distance_total + distance
-            print(f'Percorrendo hyrule para dungeon {i+1}: {distance}')
+            print(f'Percorrendo hyrule para dungeon {i+2}: {distance}')
         else:
             path = algorithm(lambda:draw_points(win, size_win, hyrule.size, hyrule.points), hyrule.points, end, dungeon.start_hyrule) # Percorre o Hyrule para o final
             distance = calculate_path(path)
@@ -79,7 +79,6 @@ def best_way(win, size_win, hyrule):
         
         shortest_path = list()
         shortest_distance = float('inf')
-
         for dungeon, distance in all_paths:  # Percorre a lista de caminhos para ver qual é o menor
             if distance < shortest_distance:
                 shortest_distance = distance
