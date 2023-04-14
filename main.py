@@ -30,11 +30,12 @@ def main(win=WINDOW, second_win=SECOND_WINDOW, size_win=SIZE):
                     pygame.quit()
                     sys.exit()
 
+                '''
                 if event.key == pygame.K_c: # Limpa o mapa
                     hyrule = get_hyrule(size_win)
+                '''
 
                 if event.key == pygame.K_SPACE:
-                    # best_way(win, size_win, hyrule)
                     play(win, second_win, size_win, hyrule)
 
 if __name__ == '__main__':

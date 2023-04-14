@@ -50,7 +50,6 @@ def best_way(win, size_win, hyrule):
 
         # end = hyrule.points[1][2]
         dungeons = [get_dungeon1(size_win), get_dungeon2(size_win), get_dungeon3(size_win)]
-        all_paths = []
 
         perm_list = []
         perms = list(itertools.permutations(dungeons)) # Criando permutação com todas as possibilidades

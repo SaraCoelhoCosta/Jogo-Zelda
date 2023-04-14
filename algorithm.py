@@ -16,7 +16,7 @@ def reconstruct_path(came_from, current, draw):  # TODO: refazer
             current.make_path2()
         else:    
             current.make_path()
-        pygame.time.delay(80)
+        # pygame.time.delay(80)
         draw()
     return list_path
 
