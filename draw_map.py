@@ -1,10 +1,10 @@
 import pygame
 
 POINTS = {
-    'G': {'color': (113, 228, 57), 'cost': 10}, # LIGHT_GREEN (0, 255, 0)
+    'G': {'color': (113, 228, 57), 'cost': 10}, # LIGHT_GREEN
     'D': {'color': (160, 140, 60), 'cost': 20}, # LIGHT_BROWN
-    'F': {'color': (10, 102, 62), 'cost': 100}, # GREEN (0, 150, 50)
-    'M': {'color': (113, 84, 27), 'cost': 150}, # BROWN (80, 40, 0)
+    'F': {'color': (10, 102, 62), 'cost': 100}, # GREEN
+    'M': {'color': (113, 84, 27), 'cost': 150}, # BROWN
     'R': {'color': (0, 150, 255), 'cost': 180}, # BLUE
     'C': {'color': (255, 255, 255), 'cost': 10}, # WHITE
     'B': {'color': (128, 128, 128), 'cost': 0}, # GREY
@@ -31,8 +31,6 @@ class Point: # Pontos do mapa
 
     def draw(self, win):
         pygame.draw.rect(win, self.color, (self.y, self.x, self.size, self.size))
-        image = pygame.transform.scale(pygame.image.load("./sprites/link.png"), (self.size // 42, self.size // 42))
-        win.blit(image, (27 * self.size, 25 * self.size))
 
     def is_barrier(self):
         return self.color == (128, 128, 128)  # TODO: refazer -- GREY
