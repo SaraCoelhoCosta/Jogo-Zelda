@@ -13,7 +13,7 @@ BLACK = (0, 0, 0) # Linhas
 
 
 class Point: # Pontos do mapa
-    def __init__(self, row, col, size, total_rows, point):
+    def __init__(self, row, col, size, total_rows, point, image=None):
         self.row = row
         self.col = col
         self.x = row * size
@@ -23,6 +23,7 @@ class Point: # Pontos do mapa
         self.neighbors = []
         self.size = size
         self.total_rows = total_rows
+        self.image = image
         self.open = False
 
     def get_location(self):
@@ -30,6 +31,8 @@ class Point: # Pontos do mapa
 
     def draw(self, win):
         pygame.draw.rect(win, self.color, (self.y, self.x, self.size, self.size))
+        image = pygame.transform.scale(pygame.image.load("./sprites/link.png"), (self.size // 42, self.size // 42))
+        win.blit(image, (27 * self.size, 25 * self.size))
 
     def is_barrier(self):
         return self.color == (128, 128, 128)  # TODO: refazer -- GREY

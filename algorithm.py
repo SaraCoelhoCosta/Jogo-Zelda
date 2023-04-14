@@ -9,6 +9,7 @@ def h(start, end):  # Heurística - quanto falta para chegar no objetivo
 
 def reconstruct_path(came_from, current, draw):  # TODO: refazer
     list_path = [current]
+    
     while current in came_from:
         current = came_from[current]
         list_path.append(current)

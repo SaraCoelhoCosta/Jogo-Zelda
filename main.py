@@ -1,7 +1,6 @@
 import sys
 import pygame
 from draw_map import draw_points
-# from teste import best_way
 from game import play
 from map import get_hyrule
 

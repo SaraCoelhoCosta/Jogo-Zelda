@@ -63,17 +63,15 @@ def best_way(win, size_win, hyrule):
             distance_total = 0
             points_dungeon = []
             for i, dungeon in enumerate(ways_list):
+                path = algorithm(lambda: draw_points(win, size_win, hyrule.size, hyrule.points), hyrule.points,
+                                     dungeon.start_hyrule, start, True)  # Retorna caminho entre posição inicial ou de uma dungeon com outra dungeon
+                start = dungeon.start_hyrule
+                distance = calculate_path(path)
+                distance_total = distance_total + distance
                 
                 if i == len(ways_list) - 1:
                     path = algorithm(lambda: draw_points(win, size_win, hyrule.size, hyrule.points), hyrule.points,
                                      end, dungeon.start_hyrule, True)  # Retorna caminho entre posição inicial ou de uma dungeon com outra dungeon
-                    distance = calculate_path(path)
-                    distance_total = distance_total + distance
-                
-                else:
-                    path = algorithm(lambda: draw_points(win, size_win, hyrule.size, hyrule.points), hyrule.points,
-                                     dungeon.start_hyrule, start, True)  # Retorna caminho entre posição inicial ou de uma dungeon com outra dungeon
-                    start = dungeon.start_hyrule
                     distance = calculate_path(path)
                     distance_total = distance_total + distance
                     
