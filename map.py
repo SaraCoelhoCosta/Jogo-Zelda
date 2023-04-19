@@ -2,7 +2,6 @@ from draw_map import make_points
 
 maps = {}  # Variável global 
 points_map_hyrule = []
-
 class Map: # Mapa
     def __init__(self, title, size, start, end, points_map, start_hyrule):
         self.title = title
@@ -44,6 +43,7 @@ def read_maps(title):
 
 
 def get_hyrule(size):
+    points_map_hyrule.clear()  # Limpa a lista
     map = read_maps('# HYRULE')
     points_map = make_points(map, size)
     points_map_hyrule.append(points_map)

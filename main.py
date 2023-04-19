@@ -13,6 +13,7 @@ def main(win=WINDOW, second_win=SECOND_WINDOW, size_win=SIZE):
     hyrule = get_hyrule(size_win)
 
     run = True
+    start_play = False
     while run:
         draw_points(win, size_win, hyrule.size, hyrule.points)
 
@@ -29,12 +30,14 @@ def main(win=WINDOW, second_win=SECOND_WINDOW, size_win=SIZE):
                     pygame.quit()
                     sys.exit()
 
-                '''
-                if event.key == pygame.K_c: # Limpa o mapa
+                
+                if event.key == pygame.K_c and start_play == True: # Limpa o mapa
+                    start_play = False
                     hyrule = get_hyrule(size_win)
-                '''
+                
 
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_SPACE and start_play == False:
+                    start_play = True
                     play(win, second_win, size_win, hyrule)
 
 if __name__ == '__main__':
