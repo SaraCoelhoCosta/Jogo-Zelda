@@ -46,6 +46,7 @@ def read_maps(title):
         return maps[title]
     
 def get_hyrule(size):
+
     map = read_maps('# HYRULE')
     map = create_points(map, size)
     maps['# HYRULE'] = map
