@@ -11,6 +11,8 @@ class Map: # Mapa
         self.points = points_map
         self.start_hyrule = start_hyrule
 
+    def map_size(self):
+        return self.size
 
 def read_maps(title):
     current_map = ''
@@ -41,9 +43,9 @@ def read_maps(title):
     
         return maps[title]
 
-
+    
 def get_hyrule(size):
-    points_map_hyrule.clear()  # Limpa a lista
+    points_map_hyrule.clear() # Limpa a lista
     map = read_maps('# HYRULE')
     points_map = make_points(map, size)
     points_map_hyrule.append(points_map)

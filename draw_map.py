@@ -1,45 +1,49 @@
 import pygame
 
 POINTS = {
-    'G': {'color': (113, 228, 57), 'cost': 10}, # LIGHT_GREEN
-    'D': {'color': (160, 140, 60), 'cost': 20}, # LIGHT_BROWN
-    'F': {'color': (10, 102, 62), 'cost': 100}, # GREEN
-    'M': {'color': (113, 84, 27), 'cost': 150}, # BROWN
-    'R': {'color': (0, 150, 255), 'cost': 180}, # BLUE
-    'C': {'color': (255, 255, 255), 'cost': 10}, # WHITE
-    'B': {'color': (128, 128, 128), 'cost': 0}, # GREY
+    'G': {'cost': 10, 'texture': './textures/grass.png'}, # LIGHT_GREEN
+    'D': {'cost': 20, 'texture': './textures/desert.png'}, # LIGHT_BROWN
+    'F': {'cost': 100, 'texture': './textures/grass.png' , 'object': './textures/trees/tree.png'}, # GREEN
+    'M': {'cost': 150, 'texture': './textures/dirt.png'}, # BROWN
+    'R': {'cost': 180, 'texture': './textures/water.png'}, # BLUE
+    'C': {'cost': 10, 'texture': './textures/floor.png'}, # WHITE
+    'B': {'cost': 0, 'texture': './textures/wall.png'}, # GREY
 }
 BLACK = (0, 0, 0) # Linhas
 
 
 class Point: # Pontos do mapa
-    def __init__(self, row, col, size, total_rows, point, image=None):
+    def __init__(self, row, col, size, total_rows, point):
         self.row = row
         self.col = col
         self.x = row * size
         self.y = col * size
-        self.color = point['color']
         self.cost = point['cost']
         self.neighbors = []
         self.size = size
         self.total_rows = total_rows
-        self.image = image
         self.open = False
+        self.texture = pygame.transform.scale(pygame.image.load(point['texture']), (size, size))
+        
+        if 'object' in point:
+            self.object = pygame.image.load(point['object'])
+            self.object = pygame.transform.scale(self.object, (size, size))
 
     def get_location(self):
-        return self.row, self.col
+        return [self.row, self.col]
 
     def draw(self, win):
-        pygame.draw.rect(win, self.color, (self.y, self.x, self.size, self.size))
+        if hasattr(self, 'object'):
+            win.blit(self.texture, (self.y, self.x))
+            win.blit(self.object, (self.y, self.x))
+        elif hasattr(self, 'texture'):
+            win.blit(self.texture, (self.y, self.x))
+
+        # if ((self.row == 1 and self.col == 24) or (self.row == 17 and self.col == 39) or (self.row == 32 and self.col == 5)) and self.total_rows == 42:
+        #    win.blit(pygame.transform.scale(pygame.image.load('./textures/portal/portal_7.png'), (self.size, self.size)), (self.col * self.size, self.row * self.size))
 
     def is_barrier(self):
-        return self.color == (128, 128, 128)  # TODO: refazer -- GREY
-    
-    def make_path(self):
-        self.color = (128, 0, 128)  # TODO: refazer -- PURPLE
-
-    def make_path2(self):
-        self.color = (255, 0, 0)  # TODO: refazer -- RED
+        return self.cost == 0
 
     def update_neighbors(self, grid):
         self.neighbors = []
@@ -86,3 +90,4 @@ def draw_line(win, size_win, size_map):  # Desenha as linhas e colunas (divisõe
         pygame.draw.line(win, BLACK, (0, i * gap), (size_win, i * gap))
         for j in range(size_map):
             pygame.draw.line(win, BLACK, (j * gap, 0), (j * gap, size_win))
+

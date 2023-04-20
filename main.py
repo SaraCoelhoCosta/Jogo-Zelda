@@ -34,7 +34,6 @@ def main(win=WINDOW, second_win=SECOND_WINDOW, size_win=SIZE):
                 if event.key == pygame.K_c and start_play == True: # Limpa o mapa
                     start_play = False
                     hyrule = get_hyrule(size_win)
-                
 
                 if event.key == pygame.K_SPACE and start_play == False:
                     start_play = True
