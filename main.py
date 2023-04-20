@@ -15,7 +15,11 @@ def main(win=WINDOW, second_win=SECOND_WINDOW, size_win=SIZE):
     run = True
     start_play = False
     while run:
-        draw_points(win, size_win, hyrule.size, hyrule.points)
+        draw_points(win, size_win, hyrule.size, hyrule.points, hyrule)
+        
+        if not start_play: # Mostra personagem na tela enquanto não inicia
+            win.blit(pygame.transform.scale(pygame.image.load('./sprites/link/link_f1.png'), (hyrule.points[0][0].size, hyrule.points[0][0].size)), (hyrule.start.get_location()[1] * hyrule.points[0][0].size, hyrule.start.get_location()[0] * hyrule.points[0][0].size))
+            pygame.display.update()
 
         for event in pygame.event.get():
 
@@ -34,7 +38,6 @@ def main(win=WINDOW, second_win=SECOND_WINDOW, size_win=SIZE):
                 if event.key == pygame.K_c and start_play == True: # Limpa o mapa
                     start_play = False
                     hyrule = get_hyrule(size_win)
-                
 
                 if event.key == pygame.K_SPACE and start_play == False:
                     start_play = True

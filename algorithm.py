@@ -7,22 +7,22 @@ def h(start, end):  # Heurística - quanto falta para chegar no objetivo
     x2, y2 = end
     return abs(x1 + x2) + abs(y1 - y2)
 
-def reconstruct_path(came_from, current, draw):  # TODO: refazer
+def reconstruct_path(win, came_from, current, draw):  # TODO: refazer
     list_path = [current]
-    
+    win.blit(pygame.transform.scale(pygame.image.load('./sprites/link/link_f1.png'), (current.size, current.size)), (current.y, current.x))
+    pygame.time.delay(100)
     while current in came_from:
         current = came_from[current]
         list_path.append(current)
-        if current.color == (128, 0, 128):
-            current.make_path2()
-        else:    
-            current.make_path()
-        # pygame.time.delay(80)
+        pygame.time.delay(60)
         draw()
+        win.blit(pygame.transform.scale(pygame.image.load('./sprites/link/link_f1.png'), (current.size, current.size)), (current.y, current.x))
+        pygame.display.update()
+    win.blit(pygame.transform.scale(pygame.image.load('./sprites/link/link_f1.png'), (current.size, current.size)), (current.y, current.x))
     return list_path
 
 # Algoritmo A*
-def algorithm(draw, map_points, start_point, end_point, best_way=False):
+def algorithm(win, draw, map_points, start_point, end_point, best_way=False):
     came_from = {}
     count = 0
 
@@ -57,7 +57,7 @@ def algorithm(draw, map_points, start_point, end_point, best_way=False):
         # Verifica se o nó atual é o objetivo, caso seja, ele constrói o caminho e retorna o caminho feito
         if current == end_point:
             if best_way == False:
-                return list(reversed(reconstruct_path(came_from, current, draw)))
+                return list(reversed(reconstruct_path(win, came_from, current, draw)))
             else:
                 list_path = [current]
                 while current in came_from:
