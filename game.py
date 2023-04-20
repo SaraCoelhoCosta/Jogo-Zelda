@@ -8,7 +8,7 @@ def play(win, second_win, size_win, hyrule):
     end = hyrule.points[1][2]
     # end = hyrule.end
     distance_total = 0
-
+    
     path = algorithm(win, lambda:draw_points(win, size_win, hyrule.size, hyrule.points, hyrule), hyrule.points, order_way[0].start_hyrule_1, hyrule.start) # Início para dungeon
     distance = calculate_path(path)
     distance_total = distance_total + distance
@@ -24,7 +24,7 @@ def play(win, second_win, size_win, hyrule):
         distance_total = distance_total + distance
         print(f'Percorrendo dungeon {i+1}: {distance}')
         
-        path = algorithm(win, lambda:draw_points(second_win, size_win, dungeon.size, dungeon.points, dungeon), dungeon.points, dungeon.start, dungeon.end) # Retorna para entrada da dungeon
+        path = algorithm(win, lambda:draw_points(second_win, size_win, dungeon.size, dungeon.points, dungeon, True), dungeon.points, dungeon.start, dungeon.end) # Retorna para entrada da dungeon
         distance = calculate_path(path)
         distance_total = distance_total + distance
         print(f'Retornando para início da dungeon {i+1}: {distance}')
@@ -40,6 +40,8 @@ def play(win, second_win, size_win, hyrule):
             distance_total = distance_total + distance
             print(f'Percorrendo da dungeon {i+1} para o fim: {distance}')
     print(f'Distância total percorrida: {distance_total}')
+
+    return True
         
 def best_way(win, size_win, hyrule):
         
