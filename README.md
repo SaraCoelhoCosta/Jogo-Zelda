@@ -15,5 +15,5 @@ localizada a Master Sword.
 pip install pygame
 ```
 
-## 📄 Licença
+### 📄 Licença
 Este projeto está sob a licença Mit - veja o arquivo [LICENSE](https://github.com/SaraCoelhoCosta/Jogo-Zelda/blob/main/LICENSE) para detalhes.
