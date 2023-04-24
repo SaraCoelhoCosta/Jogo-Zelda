@@ -14,11 +14,16 @@ def main(win=WINDOW, second_win=SECOND_WINDOW, size_win=SIZE):
 
     run = True
     start_play = False
+    end = False
     while run:
-        draw_points(win, size_win, hyrule.size, hyrule.points, hyrule)
+        draw_points(win, size_win, hyrule.size, hyrule.points, hyrule, end)
         
         if not start_play: # Mostra personagem na tela enquanto não inicia
             win.blit(pygame.transform.scale(pygame.image.load('./sprites/link/link_f1.png'), (hyrule.points[0][0].size, hyrule.points[0][0].size)), (hyrule.start.get_location()[1] * hyrule.points[0][0].size, hyrule.start.get_location()[0] * hyrule.points[0][0].size))
+            pygame.display.update()
+        
+        if end:
+            win.blit(pygame.transform.scale(pygame.image.load('./sprites/link/link.png'), (hyrule.points[0][0].size, hyrule.points[0][0].size)), (hyrule.points[1][2].get_location()[1] * hyrule.points[0][0].size, hyrule.points[1][2].get_location()[0] * hyrule.points[0][0].size))
             pygame.display.update()
 
         for event in pygame.event.get():
@@ -42,6 +47,7 @@ def main(win=WINDOW, second_win=SECOND_WINDOW, size_win=SIZE):
                 if event.key == pygame.K_SPACE and start_play == False:
                     start_play = True
                     play(win, second_win, size_win, hyrule)
+                    end = True
 
 if __name__ == '__main__':
     main()
