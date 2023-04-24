@@ -7,3 +7,13 @@ localizada a Master Sword.
 
 ### :computer: Tecnologias utilizadas:
 - Python.
+
+### 📋 Pré-requisitos
+- Instalar a versão mais recente do Python (3.11.3), que pode ser encontrada no [site oficial](https://www.python.org/downloads/);
+- Instalar a biblioteca Pygame, usando o seguinte comando:
+```
+pip install pygame
+```
+
+## 📄 Licença
+Este projeto está sob a licença Mit - veja o arquivo [LICENSE](https://github.com/SaraCoelhoCosta/Jogo-Zelda/blob/main/LICENSE) para detalhes.
