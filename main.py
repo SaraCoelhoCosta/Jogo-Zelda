@@ -46,6 +46,9 @@ def main(win=WINDOW, second_win=SECOND_WINDOW, size_win=SIZE):
 
                 if event.key == pygame.K_SPACE and not start_play:
                     start_play = True
+                    pygame.mixer.init()
+                    pygame.mixer.music.load("./music/fundo_musical.mp3")
+                    pygame.mixer.music.play()
                     play(win, second_win, size_win, hyrule)
                     end = True
 
