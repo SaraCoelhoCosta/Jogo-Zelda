@@ -4,7 +4,7 @@ from algorithm import algorithm
 from map import  get_dungeon1, get_dungeon2, get_dungeon3
 
 def play(win, second_win, size_win, hyrule):
-    order_way = best_way(win, size_win, hyrule) # Recebe a ordem em que as dungers serão percorridas
+    order_way = best_way(win, size_win, hyrule) # Recebe a ordem em que as dungeons serão percorridas
     end = hyrule.points[1][2]
     # end = hyrule.end
     distance_total = 0
@@ -14,7 +14,7 @@ def play(win, second_win, size_win, hyrule):
     distance_total = distance_total + distance
     print(f'Início para dungeon 1: {distance}')
 
-    for i, dungeon in enumerate(order_way): # Percorrendo as dungers
+    for i, dungeon in enumerate(order_way): # Percorrendo as dungeons de acordo com a ordem das dungeons passadas
         for row in dungeon.points:
             for point in row:
                 point.update_neighbors(dungeon.points)
@@ -91,6 +91,7 @@ def best_way(win, size_win, hyrule):
         # print(f'\nShortest path: {shortest_path}, distance: {shortest_distance}')
         return shortest_path
 
+# Função que calcula o caminho e é chamada várias vezes na função best_way 
 def calculate_path(path):
     distance = 0
     for point in path:

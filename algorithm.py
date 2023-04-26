@@ -7,7 +7,7 @@ def h(start, end):  # Heurística - quanto falta para chegar no objetivo
     x2, y2 = end
     return abs(x1 + x2) + abs(y1 - y2) # É calculada a distância de Manhattan
 
-def reconstruct_path(win, came_from, current, draw):  # Funçã que reconstrói o caminho
+def reconstruct_path(win, came_from, current, draw):  # Função que reconstrói o caminho
     list_path = [current]
     win.blit(pygame.transform.scale(pygame.image.load('./sprites/link/link_f1.png'), (current.size, current.size)), (current.y, current.x))
     pygame.time.delay(100)

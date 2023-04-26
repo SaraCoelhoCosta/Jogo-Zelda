@@ -46,7 +46,7 @@ def read_maps(title):
 
             else:  # Adiciona linha do mapa no dicionário
                 # print(list(line)) -> converte para lista
-                maps[current_map].append(line)
+                maps[current_map].append(line) # Cria a lista de strings do mapa a ser lido, a fim de não ler novamente
     
         return maps[title] # Retorna o mapa que foi lido
     

@@ -11,6 +11,7 @@ POINTS = {
 }
 
 class Point: # Pontos do mapa
+    # Construtor recebe todos os parâmetros necessários para criar o objeto ponto
     def __init__(self, row, col, size, total_rows, point):
         self.row = row
         self.col = col
@@ -23,15 +24,15 @@ class Point: # Pontos do mapa
         self.open = False
         self.texture = pygame.transform.scale(pygame.image.load(point['texture']), (size, size))
         
-        if 'object' in point:
+        if 'object' in point: # Usada para carregar um objeto (sprite) no ponto
             self.object = pygame.image.load(point['object'])
             self.object = pygame.transform.scale(self.object, (size, size))
 
-    def get_location(self):
+    def get_location(self): # Função que retorna a localização do ponto: linha e coluna
         return [self.row, self.col]
 
-    def draw(self, win):
-        if hasattr(self, 'object'):
+    def draw(self, win): # Desenha as texturas
+        if hasattr(self, 'object'): # Verifica se há algum sprite para inserir
             win.blit(self.texture, (self.y, self.x))
             win.blit(self.object, (self.y, self.x))
         elif hasattr(self, 'texture'):
@@ -40,10 +41,10 @@ class Point: # Pontos do mapa
         # if ((self.row == 1 and self.col == 24) or (self.row == 17 and self.col == 39) or (self.row == 32 and self.col == 5)) and self.total_rows == 42:
         #    win.blit(pygame.transform.scale(pygame.image.load('./textures/portal/portal_7.png'), (self.size, self.size)), (self.col * self.size, self.row * self.size))
 
-    def is_barrier(self):
+    def is_barrier(self): # Função que retorna custo 0 (TRUE) se for uma barreira, ou seja, analisa se é barreira
         return self.cost == 0
 
-    def update_neighbors(self, grid):
+    def update_neighbors(self, grid): # Função que atualiza os vizinhos
         self.neighbors = []
         if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].is_barrier():  # PARA BAIXO
             self.neighbors.append(grid[self.row + 1][self.col])
@@ -70,4 +71,4 @@ def create_points(map, size):  # Faz os pontos do mapa
             point = Point(i, j, gap, rows, POINTS[map[i][j]]) # Cria o ponto
             win[i].append(point)
 
-    return win
+    return win # Retorna a lista com os pontos que o mapa conterá
