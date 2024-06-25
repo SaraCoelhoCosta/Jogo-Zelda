@@ -2,6 +2,8 @@
 
 <p align="center"> 
   <img align="center" src="https://github.com/SaraCoelhoCosta/Jogo-Zelda/assets/31167065/2a49c362-890a-4561-93b6-4c5f514ebb5f" width="450" heigth="350">
+  <br>
+  <br>
   <img align="center" src="https://github.com/SaraCoelhoCosta/Jogo-Zelda/assets/31167065/bf01e1fe-2d0e-4d3a-82f5-ea324a018e1c" width="450" heigth="350">  
 </p>
 
